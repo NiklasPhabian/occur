@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+
+
+.fixed{
+    width: 200px;
+}
+.flex-item{
+    flex-grow: 1;
+}
+
+
+
+.pagination li.active a {
+    background: #000;
+    color: #fff;
+}

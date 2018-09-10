@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load tz %}
+
+
+<div class="section">
+    <h3> Citation Details:</h3>
+
+    <ul class="collapsible expandable with-header">
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Occur Citation UID:
+            </div>
+            <div class="collapsible-body">
+                <p>{{ uid }}</p>
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Occur Citation PK:
+            </div>
+            <div class="collapsible-body">
+                {{ citation.pk }}
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                DAP URL:
+            </div>
+            <div class="collapsible-body">
+                <a href={{citation.dap_url}}>{{ citation.dap_url }}</a>
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Creation time:
+            </div>
+            <div class="collapsible-body">
+                {{ citation.created_at|date:'Y-m-d H:i' }} (UTC)
+            </div>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Stored data_hash:
+            </div>
+            <div class="collapsible-body">
+                {{ citation.data_hash }}
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Dap URL:
+            </div>
+            <div class="collapsible-body">
+                {{ dap_url }}
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                DAS URL:
+            </div>
+            <div class="collapsible-body">
+                {{ das_url }}
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                BibTeX representation:
+            </div>
+            <div class="collapsible-body">
+                {{ bib }}
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                CSLJson representation:
+            </div>
+            <div class="collapsible-body">
+                {{ csljson }}
+            </div>
+        </li>
+    </ul>
+
+    <a class="waves-effect waves-light blue lighten-1 btn" onClick="expandAll();">
+        <i class="material-icons left">fullscreen</i> Expand All
+    </a>
+    <a class="waves-effect waves-light blue lighten-1 btn" onClick="collapseAll();">
+        <i class="material-icons left">fullscreen_exit</i>Collapse All
+    </a>
+
+</div>
+
+<!--
+<ul class="collection with-header">
+    <li class="collection-item"><h5>Citation</h5> </li>
+    <li class="collection-item"><h6> Occur Citation UID: </h6>      {{ uid }} </li>
+    <li class="collection-item"><h6> Occur Citation PK: </h6>       {{ citation.pk }} </li>
+    <li class="collection-item"><h6> DAP URL: </h6>                 <a href={{citation.dap_url}}>{{ citation.dap_url }}</a></li>
+    <li class="collection-item"><h6> Creation time: </h6>           {{ citation.created_at|date:'Y-m-d H:i' }} (UTC) </li>
+    <li class="collection-item"><h6> Stored data_hash: </h6>        {{ citation.data_hash }}</li>
+    <li class="collection-item"><h6> Dap URL: </h6>                 {{ dap_url }}</li>
+    <li class="collection-item"><h6> DAS URL: </h6>                 {{ das_url }}</li>
+    <li class="collection-item"><h6> BibTeX representation: </h6>   {{ bib }}</li>
+    <li class="collection-item"><h6> CSLJson representation: </h6>  {{ csljson }}</li>
+</ul>
+-->
+
+
+<script type="text/javascript" src="/static/js/ui.js"></script>
+
+<h3> Format This Citation</h3>
+<form id="form" action="">
+    <div class="row">
+        <div class="input-field col s12">
+            <label for="format">Formatting Style</label>
+            <input type="text"
+                   id="format"
+                   class="autocomplete"
+                   name="format"
+                   placeholder="occur"
+                   value="occur"/>
+            <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
+        </div>
+    </div>
+    <input type="hidden" id="dap_url" name="dap_url" value="{{citation.dap_url}}"/>
+    <div class="row">
+        <button onclick="document.getElementById().submit()"
+                class="waves-effect waves-light blue lighten-1 btn-small">
+            Format Citation
+        </button>
+    </div>
+</form>
+
+
+
+</br>
+
+<div class="row" id="citation_row" style="display: none;">
+    <div class="card blue darken-1">
+        <div class="card-content white-text">
+            <span class="card-title">Citation Snippet</span>
+            <textarea id="citation" class="materialize-textarea white-text" value=""></textarea>
+        </div>
+        <div class="card-action">
+            <button onclick="copyCitation()" class="waves-effect waves-light blue lighten-1 btn-small">Copy Citation</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Scripts -->
+<!-- Expand Collapsible-->
+
+<script type="text/javascript">
+var elem = document.querySelector('.collapsible.expandable');
+var instance = M.Collapsible.init(elem, {
+  accordion: false
+});
+</script>
+
+<script type="text/javascript">
+function expandAll(){
+    var elem = document.querySelector('.collapsible.expandable');
+    var instance = M.Collapsible.getInstance(elem);
+    instance.close(instance.length);
+    instance.open(instance.length);
+}
+
+function collapseAll(){
+    var elem = document.querySelector('.collapsible.expandable');
+    var instance = M.Collapsible.getInstance(elem);
+    instance.open(instance.length);
+    instance.close(instance.length);
+}
+</script>
+
+
+<!-- Copy Citations -->
+<script>
+    function copyCitation() {
+  /* Get the text field */
+  var copyText = document.getElementById("citation");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+}
+</script>
+
+
+<!-- Autocomplete-->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input.autocomplete').autocomplete({
+      data: {
+        {% for style in styles %}
+            "{{style}}" : null,
+        {% endfor %}
+      },
+    });
+  });
+</script>
+
+
+
+
+
+
+{% endblock %}

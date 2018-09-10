@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="section">
+    <div class="row center">
+        <div class="col s12 m10 offset-m1">
+            <h1 class="header">OCCUR</h1>
+        </div>
+
+        <div class="col s12 m8 offset-m2">
+            <h4 class="light">The OPeNDAP Citation Creator</h4>
+        </div>
+
+    </div>
+</div>
+
+<div class="section">
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="material-icons">lightbulb_outline</i>
+                <p class="promo-caption">What is OCCUR?</p>
+                <p class="light center">
+                    OCCUR is the <a href="https://www.opendap.org/">OPeNDAP</a> Citation Creator. </br>
+                    OCCUR helps to streamline the workflow of data scientists by allowing users to format
+                    and store citations of data served through OPeNDAP servers.
+                </p>
+            </div>
+        </div>
+
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="material-icons">format_color_text</i>
+                <p class="promo-caption">Formatting Citations</p>
+                <p class="light center">
+                    OCCUR converts <a href="https://www.opendap.org/">OPeNDAP</a>
+                    queries (URLs) into formatted citations.
+                    It sources three blocks of information: 1. The OPeNDAP query,
+                    2. Metadata stored in the DAS, 3. The point in time of the citation creation.
+                    OCCUR converts this data into CSL-JSON and leverages
+                    <a href="https://en.wikipedia.org/wiki/CiteProc">citeproc</a>
+                    to turn the data into formatted citation snippets
+                </p>
+            </div>
+        </div>
+
+        <div class="col s12 m4">
+            <div class="center promo">
+                <i class="material-icons">group</i>
+                <p class="promo-caption">Storing Citations</p>
+                <p class="light center">
+                    OCCUR stores Citations.
+                    A stored citation is associated with a unique identifier
+                    that can later be de-referenced.
+                    Storing citations in OCCUR has two major advantages:
+                    Fixity: During de-referencing, OCCUR checks if the data in the OPeNDAP
+                    resource has been modified since the creation of the citation.
+                    If so, the user is provided with a warning.
+                    Identity: OCCUR identifies and merges citations to identical datasets.
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="section">
+
+    <div class="row" >
+        <div class="col s12 m6">
+            OCCUR is on
+            <a href="https://github.com/nphabian/">Github </a>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col s12 m6">
+            OCCUR is supported by the <a href="https://www.esipfed.org/">ESIP Federation.</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

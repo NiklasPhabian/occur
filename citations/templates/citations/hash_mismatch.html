@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="section">
+    <h3>Mismatch</h3>
+    The data appears to have changed since the creation of the citation.
+</div>
+
+
+
+
+<div class="section">
+    <div class="card blue lighten-1">
+        <span class="card-title">Citation hash:</span>
+        <div class="card-content ">
+            <code>
+                {{ hash_local }}
+            </code>
+        </div>
+    </div>
+    <div class="card blue lighten-1">
+        <span class="card-title">Data source hash:</span>
+        <div class="card-content">
+            <code>
+                {{ hash_remote }}
+            </code>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

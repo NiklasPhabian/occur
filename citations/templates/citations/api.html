@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with api=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
+{% block content %}
+
+<div class="section">
+    <h3> Citations API</h3>
+    This is a demonstration of the OCCUR API
+
+    <div class="section">
+        <h5> Format a Citation</h5>
+        <form id="form" action="">
+            <button onclick="document.getElementById().submit()"
+                    formaction="{% url 'citations:bib' %}"
+                    class="waves-effect waves-light blue lighten-1 btn-large"
+                    style="float: right">
+                Format Citation
+            </button>
+            <div style="overflow: hidden; padding-right: .5em;">
+                <div class="input-field col s12">
+                    <label for="dap_url">DAP URL</label>
+                    <input  type="text"
+                            id="dap_url"
+                            name="dap_url"
+                            class="form-control"
+                            placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                            value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                </div>
+                <div class="input-field col s12">
+                    <label for="format">Formatting Style</label>
+                    <input type="text"
+                           id="format"
+                           class="autocomplete"
+                           name="format"
+                           placeholder="occur"
+                           value="occur"/>
+                </div>
+            </div>
+        </form>
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/bib/?dap_url=$DAP_URL&format=$FORMAT
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h5> To BibTex</h5>
+        <form id="bib">
+            <button onclick="document.getElementById('api_form').submit()"
+                    formaction="{% url 'citations:bib' %}"
+                    class="waves-effect waves-light blue lighten-1 btn-large"
+                    style="float: right">
+                As BibTex
+            </button>
+            <div style="overflow: hidden; padding-right: .5em;">
+                <div class="input-field col s12">
+                    <label for="dap_url_bib">DAP URL</label>
+                    <input type="text"
+                           id="dap_url_bib"
+                           name="dap_url"
+                           placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                           value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                           style="width: 100%"/>
+                </div>
+            </div>
+
+        </form>
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/bib/?dap_url=$DAP_URL
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h5> To CSL JSON</h5>
+        <form id="csljson">
+            <button onclick="document.getElementById('api_form').submit()"
+                    formaction="{% url 'citations:csljson' %}"
+                    class="waves-effect waves-light blue lighten-1 btn-large"
+                    style="float: right">
+                As CSL-JSON
+            </button>
+            <div style="overflow: hidden; padding-right: .5em;">
+                <div class="input-field col s12">
+                    <label for="dap_url_csl">DAP URL</label>
+                    <input type="text"
+                           id="dap_url_csl"
+                           name="dap_url"
+                           placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                           value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                </div>
+            </div>
+        </form>
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/csljson/?dap_url=$DAP_URL
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h5> Details </h5>
+        <form id="details">
+            <button onclick="document.getElementById('api_form').submit()"
+                    formaction="{% url 'citations:details' %}"
+                    class="waves-effect waves-light blue lighten-1 btn-large"
+                    style="float: right">
+                Details
+            </button>
+            <div style="overflow: hidden; padding-right: .5em;">
+                <div class="input-field col s12">
+                    <label for="dap_url_details">DAP URL</label>
+                    <input type="text"
+                           id="dap_url_details"
+                           name="dap_url"
+                           placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                           value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                </div>
+            </div>
+        </form>
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/details/?dap_url=$DAP_URL
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h5> DeReference </h5>
+        <form id="dereference">
+            <button onclick="document.getElementById('api_form').submit()"
+                    formaction="{% url 'citations:dereference' %}"
+                    class="waves-effect waves-light blue lighten-1 btn-large"
+                    style="float: right">
+                    style="float: right">
+                DeReference
+            </button>
+            <div style="overflow: hidden; padding-right: .5em;">
+                <div class="input-field col s12">
+                    <label for="identifier">OCCUR Identifier</label>
+                    <input type="text"
+                           id="identifier"
+                           name="identifier"
+                           placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                           value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                </div>
+            </div>
+        </form>
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/dereference/?identifier=$IDENTIFIER
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h5> Request available citation styles </h5>
+        <div class="row">
+            <button onclick="document.getElementById('api_form').submit()"
+                    formaction="{% url 'citations:details' %}"
+                    class="waves-effect waves-light blue lighten-1 btn-large right">
+                Styles
+            </button>
+        </div>
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/styles
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

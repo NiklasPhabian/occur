@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with about=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
+{% block content %}
+<div class="section">
+    <h3>About this page</h3>
+    Occur is the OPeNDAP Citatation Creator. OCCUR is a service to create data citations from OPeNDAP resources. <br/>
+    Occur is developed by Niklas Griessbaum at the Bren School of Environmental Science & Management.
+
+</div>
+<div class="section">
+    <img src="https://imgs.xkcd.com/comics/wikipedian_protester.png" class="center" title="xkcd webcomic titled 'Wikipedian Protester'"/>
+</div>
+
+
+<p> <span class="bold">Bren School of Environmental Science &amp; Management</span><br>
+    2400 Bren Hall, University of California, Santa Barbara CA 93106-5131<br>
+    <span class="italic">A professional graduate school founded in 1991</span>
+</p>
+</div>
+
+
+{% endblock %}

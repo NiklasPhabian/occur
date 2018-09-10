@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with format=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
+{% block content %}
+
+
+<script type="text/javascript" src="/static/js/ui.js"></script>
+
+<div class="section">
+    <h3> Format Citations</h3>
+    <form id="form" action="">
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="dap_url">DAP URL</label>
+                <input  type="text"
+                        id="dap_url"
+                        name="dap_url"
+                        class="form-control"
+                        placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                        value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                <span class="helper-text">Paste a DAP URL here</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="format">Formatting Style</label>
+                <input type="text"
+                       id="format"
+                       class="autocomplete"
+                       name="format"
+                       placeholder="occur"
+                       value="occur"/>
+                <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
+            </div>
+        </div>
+        <div class="row">
+            <button onclick="document.getElementById().submit()"
+                    class="waves-effect waves-light blue lighten-1 btn-small">
+                Format Citation
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="section">
+    <div class="row" id="citation_row" style="display: none;">
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Citation Snippet</span>
+                <textarea id="citation" class="materialize-textarea white-text" value=""></textarea>
+            </div>
+            <div class="card-action">
+                <button onclick="copyCitation()" class="waves-effect waves-light blue lighten-1 btn-small">Copy Citation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="section">
+    <blockquote>
+        <h4> Explanation</h4>
+        Paste a DAP URL and select a Formatting Style to retrieve a formatted citation.
+    </blockquote>
+
+</div>
+
+<div class="section">
+    <div class="col">
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">A citation can also be formatted through the OCCUR API:</span>
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/format/?dap_url=$DAP_URL&format=$FORMAT
+                    </code>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Scripts -->
+<script>
+    function copyCitation() {
+  /* Get the text field */
+  var copyText = document.getElementById("citation");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+}
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input.autocomplete').autocomplete({
+      data: {
+        {% for style in styles %}
+            "{{style}}" : null,
+        {% endfor %}
+      },
+    });
+  });
+</script>
+
+
+
+
+{% endblock %}

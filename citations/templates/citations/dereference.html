@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section>
+    <div class="section">
+        <h3> De-Reference a Citation</h3>
+        <form id="form" action="">
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="identifier">OCCUR identifier</label>
+                    <input  type="text"
+                            id="identifier"
+                            name="identifier"
+                            class="form-control"/>
+                    <span class="helper-text">Paste an OCCUR identifer (PK, or UID) here</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <button onclick="document.getElementById().submit()"
+                        class="waves-effect waves-light blue lighten-1 btn-small">
+                    De-Reference
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div class="section">
+        <div class="col s12 m7">
+            <div class="card horizontal small">
+                <div class="card-image">
+                    <image src="{% static 'images/dereference_flow.png'%}" ></image>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h5 class="header">Explanation</h5>
+                        <blockquote>
+                            Paste an OCCUR identifier (either PK or UID) to de-reference a citation.
+                            OCCUR will verify that the data has remained unchanged since the creation of the citation.
+                            If the data has changed, the user will be provided with a warning that the citation cannot be
+                            de-referenced anymore. Otherwise, OCCUR will redirect to the data.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="col">
+            <div class="card blue darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">A citation can also be de-reference through the OCCUR API:</span>
+                    <p>
+                        <code>
+                            www.occur.duckdns.org/citations/dereference/?identifier=$IDENTIFIER
+                        </code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

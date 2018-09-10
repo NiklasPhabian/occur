@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with store=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
+{% block content %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static 'css/citation.css' %}">
+
+
+<div class="section">
+    <h3>Store a Citation</h3>
+    <form id="store_form">
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="dap_url">Formatting Style</label>
+                <input type="text"
+                       id="dap_url"
+                       name="dap_url"
+                       placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
+                       value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="submit"  class="waves-effect waves-light blue lighten-1 btn-small" formaction="">
+                Store Citation
+            </button>
+            <button type="submit"  class="waves-effect waves-light blue lighten-1 btn-small" formaction="{% url 'citations:stage' %}">
+                Stage Citation
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<div class="section">
+    <div class="col s12 m7">
+        <div class="card horizontal small">
+            <div class="card-image">
+                <image src="{% static 'images/flow.png'%}" ></image>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h5 class="header">Explanation</h5>
+                    <blockquote>
+                        Paste a DAP URL to retrieve a permanent citation.
+
+                        If a citation for the same data has already been stored, OCCUR will redirect to this previously stored citation.
+                        Otherwise, a new citation reference will be stored.
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="col">
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">A citation can also be saved through the OCCUR API:</span>
+                <p>
+                    <code>
+                        www.occur.duckdns.org/citations/store/?dap_url=$DAP_URL
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock content%}
