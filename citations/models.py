@@ -38,7 +38,7 @@ class Citation(models.Model):
         self.data_hash = self.dap_resource.get_data_hash()
 
     def uid(self):
-        return self.dap_url + '(' + str(self.created_at) + ')'
+        return self.dap_url + '(' + str(self.created_at.replace(tzinfo=None)) + ')'
 
     def __str__(self):
         return str(self.dap_url)

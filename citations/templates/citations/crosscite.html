@@ -12,17 +12,16 @@
 <script type="text/javascript" src="/static/js/ui.js"></script>
 
 <div class="section">
-    <h3> Format Citations</h3>
+    <h3> Format Citation</h3>
     <form id="form" action="">
         <div class="row">
             <div class="input-field col s12">
-                <label for="dap_url">DAP URL</label>
+                <label for="doi">Paste DOI</label>
                 <input  type="text"
-                        id="dap_url"
-                        name="dap_url"
+                        id="doi"
+                        name="doi"
                         class="form-control"
-                        placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
-                        value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                        />
                 <span class="helper-text">Paste a DAP URL here</span>
             </div>
         </div>
@@ -68,7 +67,7 @@
 <div class="section">
     <blockquote>
         <h4> Explanation</h4>
-        Paste a DAP URL and select a Formatting Style to retrieve a formatted citation.
+        This is a replication of the crosscite.org Citation formatter <a href="https://crosscite.org/">https://crosscite.org/</a>
     </blockquote>
 
 </div>
@@ -80,7 +79,7 @@
                 <span class="card-title">A citation can also be formatted through the OCCUR API:</span>
                 <p>
                     <code>
-                        www.occur.duckdns.org/citations/format/?dap_url=$DAP_URL&format=$FORMAT
+                        www.occur.duckdns.org/citations/crosscite/?doi=$DAP_URL&format=$FORMAT
                     </code>
                 </p>
             </div>

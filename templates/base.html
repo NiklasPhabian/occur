@@ -21,13 +21,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125572420-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-125572420-1');
+    </script>
 
 </head>
+
 <body>
-
-
-
-
 <header>
     <nav>
         <div class="nav-wrapper blue darken-1">
@@ -108,9 +113,9 @@
 <main>
     <div class="container">
         <section>
-        {% block content %}
-        {% endblock %}
-            </section>
+            {% block content %}
+            {% endblock %}
+        </section>
     </div>
 </main>
 
@@ -119,7 +124,7 @@
 
 <footer class="page-footer blue darken-1">
     <div class="footer-copyright">
-    <div class="container">
+        <div class="container">
         <span class="white-text">© 2018
             <a href="http://www.occur.duckdns.org" class="white-text" target="_blank">OCCUR</a>.
             Website built by Niklas Griessbaum. Powered by
@@ -127,12 +132,9 @@
             <a href="https://materializecss.com/icons.html" style="color:white">materializecss</a>.
             <a class="white-text right" href="https://github.com/Dogfalo/materialize/blob/master/LICENSE">MIT License</a>
         </span>
-    </div>
+        </div>
     </div>
 </footer>
-
-
-
 
 
 

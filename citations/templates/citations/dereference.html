@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 
+
 <section>
     <div class="section">
         <h3> De-Reference a Citation</h3>
@@ -26,6 +27,13 @@
         </form>
     </div>
 
+    {% if error %}
+    <div class="error_box" >
+        <div class="row">
+            {{error}}
+        </div>
+    </div>
+    {% endif %}
 
 
     <div class="section">

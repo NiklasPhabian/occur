@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^snippet/$', views.snippet, name='snippet'),
     url(r'^styles/$', views.styles, name='styles'),
     url(r'^store/$', views.store, name='store'),
+    url(r'^resolve_doi/$', views.resolve_doi, name='resolve_doi'),
+    url(r'^crosscite/$', views.crosscite, name='crosscite'),
     url(r'^stage/$', views.stage, name='stage'),
     url(r'^dereference/$', views.dereference, name='dereference'),
 ]

@@ -9,9 +9,7 @@ function init() {
 		document.getElementById(y).value = x);
 
 	new Clipboard('.btn-lg');
-	// TODO: there is an issue in order to get plain-text right-of-thebox in github https://github.com/zenorocha/clipboard.js/issues/299
 	$("#citation_row").hide();
-	// $("#copy_citation").hide();
 }
 
 
@@ -22,13 +20,12 @@ function submit() {
 		url : "/citations/snippet",
 		data : {
 			dap_url : dap_url,
-			format : $("#format").val()
+			style : $("#style").val()
 		},
 		dataType : "text",
 		success : function(data) {
 		    $("#citation").val(data);
             M.textareaAutoResize($('#citation'));
-
 			$("#citation_row").show();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {

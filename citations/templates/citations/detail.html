@@ -37,7 +37,7 @@
                 Creation time:
             </div>
             <div class="collapsible-body">
-                {{ citation.created_at|date:'Y-m-d H:i' }} (UTC)
+                {{ citation.created_at|date:'Y-m-d H:i:s.u' }} (UTC)
             </div>
         <li class="">
             <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
@@ -49,18 +49,10 @@
         </li>
         <li class="">
             <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
-                Dap URL:
-            </div>
-            <div class="collapsible-body">
-                {{ dap_url }}
-            </div>
-        </li>
-        <li class="">
-            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
                 DAS URL:
             </div>
             <div class="collapsible-body">
-                {{ das_url }}
+                <a href={{das_url}}> {{ das_url }} </a>
             </div>
         </li>
         <li class="">
@@ -112,11 +104,11 @@
 <form id="form" action="">
     <div class="row">
         <div class="input-field col s12">
-            <label for="format">Formatting Style</label>
+            <label for="style">Formatting Style</label>
             <input type="text"
-                   id="format"
+                   id="style"
                    class="autocomplete"
-                   name="format"
+                   name="style"
                    placeholder="occur"
                    value="occur"/>
             <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
