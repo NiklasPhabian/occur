@@ -101,7 +101,7 @@
 <script type="text/javascript" src="/static/js/ui.js"></script>
 
 <h3> Format This Citation</h3>
-<form id="form" action="">
+<form id="formatForm" action="">
     <div class="row">
         <div class="input-field col s12">
             <label for="style">Formatting Style</label>
@@ -109,18 +109,49 @@
                    id="style"
                    class="autocomplete"
                    name="style"
-                   placeholder="occur"
-                   value="occur"/>
+                   autocomplete="off"/>
             <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
         </div>
     </div>
-    <input type="hidden" id="dap_url" name="dap_url" value="{{citation.dap_url}}"/>
-    <div class="row">
-        <button onclick="document.getElementById().submit()"
-                class="waves-effect waves-light blue lighten-1 btn-small">
-            Format Citation
-        </button>
-    </div>
+    <input type="hidden" id="dapUrl" name="dapUrl" value="{{citation.dap_url}}"/>
+       <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
+                <span>Ignore DOI</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
+                <span>Extract DOI from DAS</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="externalDOI"/>
+                <span>Manually provide a DOI</span>
+            </label>
+        </p>
+
+        <input type="text" name="doiSource" id="doiSource" hidden/>
+
+        <div class="row">
+            <div class="input-field col s12" id="doiCol">
+                <label for="doi">DOI</label>
+                <input type="text"
+                       id="doi"
+                       name="doi"/>
+                <span class="helper-text">Paste DOI here</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="submit"
+                    class="waves-effect waves-light blue lighten-1 btn-small">
+                Format Citation
+            </button>
+        </div>
+
 </form>
 
 

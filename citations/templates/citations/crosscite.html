@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block active %}
-{% with format=True %}
+{% with crosscite=True %}
 {{ block.super }}
 {% endwith%}
 {% endblock active%}
@@ -12,19 +12,22 @@
 <script type="text/javascript" src="/static/js/ui.js"></script>
 
 <div class="section">
-    <h3> Format Citation</h3>
-    <form id="form" action="">
+    <h3> Format Citation (Crosscite) </h3>
+    <form id="formatForm" action="">
+
+
         <div class="row">
             <div class="input-field col s12">
-                <label for="doi">Paste DOI</label>
-                <input  type="text"
-                        id="doi"
-                        name="doi"
-                        class="form-control"
-                        />
-                <span class="helper-text">Paste a DAP URL here</span>
+                <label for="doi">DOI</label>
+                <input type="text"
+                       id="doi"
+                       name="doi"/>
+                <span class="helper-text">Paste DOI here</span>
             </div>
         </div>
+
+        <input type="text" name="doiSource" id="doiSource" value="external" hidden/>
+
         <div class="row">
             <div class="input-field col s12">
                 <label for="style">Formatting Style</label>
@@ -32,13 +35,12 @@
                        id="style"
                        class="autocomplete"
                        name="style"
-                       placeholder="occur"
-                       value="occur"/>
+                       autocomplete="off"/>
                 <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
             </div>
         </div>
         <div class="row">
-            <button onclick="document.getElementById().submit()"
+            <button type="submit"
                     class="waves-effect waves-light blue lighten-1 btn-small">
                 Format Citation
             </button>
@@ -67,7 +69,9 @@
 <div class="section">
     <blockquote>
         <h4> Explanation</h4>
-        This is a replication of the crosscite.org Citation formatter <a href="https://crosscite.org/">https://crosscite.org/</a>
+        This is a replication of the crosscite.org citation formatter <a href="https://crosscite.org/">https://crosscite.org/</a>.
+        In contrary to crosscite.org, this service allows to generate a citation from any site that supports the accept header:
+        "application/rdf+xml" through content negotiation.
     </blockquote>
 
 </div>

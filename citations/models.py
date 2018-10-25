@@ -53,3 +53,8 @@ class CitationExtended(Citation):
     comment = models.TextField(default=None)
 
 
+class CitationMetaData(models.Model):
+    citation_pk = models.IntegerField()
+    doi = models.CharField(max_length=200)
+
+

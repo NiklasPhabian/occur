@@ -9,14 +9,14 @@ body {
   }
 
 
-
 .fixed{
     width: 200px;
 }
+
+
 .flex-item{
     flex-grow: 1;
 }
-
 
 
 .pagination li.active a {
@@ -25,13 +25,37 @@ body {
 }
 
 
-
 .error_box {
     color: #ef5350
 }
+
 
 .error_box2 {
     padding: 10px;
     border: 2px solid red;
     color: red;
 }
+
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #42a5f5;
+}
+
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #1e88e5;
+}
+
+
+
+[type="radio"].with-gap:checked + span:before{
+    border:  #1e88e5;
+
+}
+
+[type="radio"].with-gap:checked + span:after {
+    background-color: #42a5f5;
+}
+
+
+

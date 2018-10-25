@@ -13,39 +13,78 @@
 
 <div class="section">
     <h3> Format Citations</h3>
-    <form id="form" action="">
+    <form id="formatForm" action="">
         <div class="row">
             <div class="input-field col s12">
-                <label for="dap_url">DAP URL</label>
+                <label for="dapUrl">DAP URL</label>
                 <input  type="text"
-                        id="dap_url"
-                        name="dap_url"
-                        class="form-control"
-                        placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
-                        value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                        id="dapUrl"
+                        name="dapUrl"
+                        class="form-control"/>
                 <span class="helper-text">Paste a DAP URL here</span>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s12">
                 <label for="style">Formatting Style</label>
                 <input type="text"
                        id="style"
-                       class="autocomplete"
                        name="style"
-                       placeholder="occur"
-                       value="occur"/>
+                       autocomplete="off"/>
                 <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
             </div>
         </div>
+
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
+                <span>Ignore DOI</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
+                <span>Extract DOI from DAS</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="externalDOI"/>
+                <span>Manually provide a DOI</span>
+            </label>
+        </p>
+
+        <input type="text" name="doiSource" id="doiSource" hidden/>
+
         <div class="row">
-            <button onclick="document.getElementById().submit()"
+            <div class="input-field col s12" id="doiCol">
+                <label for="doi">DOI</label>
+                <input type="text"
+                       id="doi"
+                       name="doi"/>
+                <span class="helper-text">Paste DOI here</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="submit"
                     class="waves-effect waves-light blue lighten-1 btn-small">
                 Format Citation
             </button>
         </div>
     </form>
 </div>
+
+
+<div class="section">
+    <div class="row" id="error_row" style="display: none;">
+
+
+    </div>
+</div>
+
+
 
 <div class="section">
     <div class="row" id="citation_row" style="display: none;">
@@ -60,9 +99,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <div class="section">
@@ -80,43 +116,17 @@
                 <span class="card-title">A citation can also be formatted through the OCCUR API:</span>
                 <p>
                     <code>
-                        www.occur.duckdns.org/citations/format/?dap_url=$DAP_URL&format=$FORMAT
+                        www.occur.duckdns.org/citations/format/?doi=$DOI&dap_url=$DAP_URL&doiSource=das&style=$STYLE
                     </code>
                 </p>
             </div>
-
         </div>
     </div>
 </div>
 
 
 
-<!-- Scripts -->
-<script>
-    function copyCitation() {
-  /* Get the text field */
-  var copyText = document.getElementById("citation");
 
-  /* Select the text field */
-  copyText.select();
-
-  /* Copy the text inside the text field */
-  document.execCommand("copy");
-}
-</script>
-
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('input.autocomplete').autocomplete({
-      data: {
-        {% for style in styles %}
-            "{{style}}" : null,
-        {% endfor %}
-      },
-    });
-  });
-</script>
 
 
 

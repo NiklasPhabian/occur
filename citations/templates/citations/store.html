@@ -17,22 +17,26 @@
     <form id="store_form">
         <div class="row">
             <div class="input-field col s12">
-                <label for="dap_url">Formatting Style</label>
+                <label for="dap_url">DAP URL</label>
                 <input type="text"
                        id="dap_url"
-                       name="dap_url"
-                       placeholder="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"
-                       value="http://opendap.duckdns.org:8080/opendap/data/csv/temperature.csv.ascii?Station[0:1:2],latitude[0:1:2]"/>
+                       name="dap_url"/>
             </div>
         </div>
 
         <div class="row">
-            <button type="submit"  class="waves-effect waves-light blue lighten-1 btn-small" formaction="">
+            <button type="submit"
+                    class="waves-effect waves-light blue lighten-1 btn-small"
+                    formaction="">
                 Store Citation
             </button>
-            <button type="submit"  class="waves-effect waves-light blue lighten-1 btn-small" formaction="{% url 'citations:stage' %}">
+            <!--
+            <button type="submit"
+                    class="waves-effect waves-light blue lighten-1 btn-small"
+                    formaction="{% url 'citations:stage' %}">
                 Stage Citation
             </button>
+            -->
         </div>
     </form>
 </div>

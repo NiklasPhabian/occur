@@ -34,12 +34,12 @@
                 <p class="promo-caption">Formatting Citations</p>
                 <p class="light center">
                     OCCUR converts <a href="https://www.opendap.org/">OPeNDAP</a>
-                    queries (URLs) into formatted citations.
+                    queries into formatted citations.
                     It sources three blocks of information: 1. The OPeNDAP query,
                     2. Metadata stored in the DAS, 3. The point in time of the citation creation.
                     OCCUR converts this data into CSL-JSON and leverages
                     <a href="https://en.wikipedia.org/wiki/CiteProc">citeproc</a>
-                    to turn the data into formatted citation snippets
+                    to turn the data into formatted citation snippets.
                 </p>
             </div>
         </div>
@@ -52,11 +52,10 @@
                     OCCUR stores Citations.
                     A stored citation is associated with a unique identifier
                     that can later be de-referenced.
-                    Storing citations in OCCUR has two major advantages:
-                    Fixity: During de-referencing, OCCUR checks if the data in the OPeNDAP
-                    resource has been modified since the creation of the citation.
-                    If so, the user is provided with a warning.
-                    Identity: OCCUR identifies and merges citations to identical datasets.
+                    Storing citations in OCCUR has two major advantages.
+                    1. Fixity: During de-referencing, OCCUR verifies that the data in the OPeNDAP
+                    resource has not been modified since the creation of the citation.
+                    2. Identity: OCCUR identifies and merges citations to identical datasets.
 
                 </p>
             </div>
