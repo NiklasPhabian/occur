@@ -11,7 +11,8 @@ OCCUR is built on django and uses citeproc-py for citation formatting
 
 Installing citeproc:
 
-  sudo apt install python3-citeproc
+  pip3 install citeproc-py
+  
 
 Installing CSL Styles:
 

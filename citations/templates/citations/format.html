@@ -8,12 +8,14 @@
 
 {% block content %}
 
+{% load static %}
+
 
 <script type="text/javascript" src="/static/js/ui.js"></script>
 
 <div class="section">
     <h3> Format Citations</h3>
-    <form id="formatForm" action="">
+    <form id="formatCitation" method="get">
         <div class="row">
             <div class="input-field col s12">
                 <label for="dapUrl">DAP URL</label>
@@ -38,14 +40,14 @@
 
         <p>
             <label>
-                <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
-                <span>Ignore DOI</span>
+                <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
+                <span>Extract DOI from DAS</span>
             </label>
         </p>
         <p>
             <label>
-                <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
-                <span>Extract DOI from DAS</span>
+                <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
+                <span>Ignore DOI</span>
             </label>
         </p>
         <p>
@@ -68,9 +70,14 @@
         </div>
 
         <div class="row">
-            <button type="submit"
+            <button type="submit" formaction="format"
                     class="waves-effect waves-light blue lighten-1 btn-small">
                 Format Citation
+            </button>
+
+            <button type="button" id="metadata" formaction="metadata" style="display: none;"
+                    class="waves-effect waves-light blue lighten-1 btn-small">
+                View Metadata
             </button>
         </div>
     </form>
@@ -79,11 +86,14 @@
 
 <div class="section">
     <div class="row" id="error_row" style="display: none;">
-
-
+        <div class="card red lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Errors/Warnings</span>
+                <ul id="error_list"></ul>
+            </div>
+        </div>
     </div>
 </div>
-
 
 
 <div class="section">
@@ -101,22 +111,15 @@
 </div>
 
 
-<div class="section">
-    <blockquote>
-        <h4> Explanation</h4>
-        Paste a DAP URL and select a Formatting Style to retrieve a formatted citation.
-    </blockquote>
-
-</div>
 
 <div class="section">
     <div class="col">
         <div class="card blue darken-1">
             <div class="card-content white-text">
-                <span class="card-title">A citation can also be formatted through the OCCUR API:</span>
+                <span class="card-title">The citation can also be formatted through the OCCUR API:</span>
                 <p>
-                    <code>
-                        www.occur.duckdns.org/citations/format/?doi=$DOI&dap_url=$DAP_URL&doiSource=das&style=$STYLE
+                    <code id="request_url">
+                        www.occur.duckdns.org/citations/format/?doi=$DOI&dapUrl=$DAPURL&doiSource=das&style=$STYLE
                     </code>
                 </p>
             </div>
@@ -124,6 +127,27 @@
     </div>
 </div>
 
+
+
+<div class="section">
+    <div class="col s12 m7">
+        <div class="card">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <blockquote>
+                        <h4> Explanation</h4>
+                        Paste a DAP URL and select a Formatting Style to retrieve a formatted citation.
+                        You may optionally add a DOI to source additional metadata.
+                    </blockquote>
+                </div>
+
+                <div class="card-image">
+                    <image src="{% static 'images/format.png'%}" ></image>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

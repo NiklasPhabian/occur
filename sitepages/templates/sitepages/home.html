@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
+
+{% block active %}
+{% with home=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
 {% block content %}
+
+{% load static %}
 
 <div class="section">
     <div class="row center">

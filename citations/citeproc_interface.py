@@ -1,10 +1,8 @@
 import citeproc
 import lxml
-from .dap_resource import DapResource
-from .doi import DOIResource
 import os
 
-style_folder = '/home/griessbaum/Dropbox/UCSB/occur/styles-master/'
+style_folder = '/home/griessbaum/Dropbox/UCSB/data_citation/occur/styles-master/'
 
 
 def list_styles():
@@ -19,55 +17,82 @@ def dap2snippet(dap_url, style, resolve_dap_doi=True):
     return snippet
 
 
-class Reference:
+class CiteProcDict(citeproc.source.bibtex.BibTeX):
+
+    def __init__(self, das):
+        self.preamble_macros = {}
+        ref_data = {}
+        for key, value in das.items():
+            python_key = key.replace('-', '_')
+            if python_key == 'id':
+                continue
+            elif python_key in ['month', 'year']:
+                continue
+            if python_key in citeproc.NAMES:
+                value = self._parse_author(authors=value)
+            elif python_key in citeproc.DATES:
+                value = self.parse_date(value)
+            if python_key in citeproc.VARIABLES:
+                if type(value) is str:
+                    ref_data[python_key] = value.replace('\n', '')
+                else:
+                    ref_data[python_key] = value
+            else:
+                print('{} is not a citproc variable'.format(python_key))
+
+        if self._bibtex_to_csl_date(das) is not None:
+            ref_data['issued'] = self._bibtex_to_csl_date(das)
+        ref_type = 'dap resource'
+        reference = citeproc.source.Reference('refkey', ref_type, **ref_data)
+        self.add(reference)
+
+
+class CiteProcDAS(CiteProcDict):
+    pass
+
+
+class Reference(citeproc.source.Reference):
 
     def __init__(self):
-        self.reference = citeproc.source.Reference(**{'key': 'refkey', 'type': 'dap resource'})
-        self.errors = []
+        self.key = 'refkey'
+        self.errors = None
 
-    def from_request(self, request):
-        resolve_dap_doi = False
-        if 'doiSource' in request.GET and request.GET['doiSource'] == 'das':
-            resolve_dap_doi = True
-        if 'dapUrl' in request.GET and request.GET['dapUrl'] is not '':
-            self.from_dap(dap_url=request.GET['dapUrl'], resolve_dap_doi=resolve_dap_doi)
-        if 'doi' in request.GET and request.GET['doi'] is not '' and not resolve_dap_doi:
-            self.from_doi(doi=request.GET['doi'])
+    def from_dict(self, dict):
+        source = CiteProcDict(dict)
+        self.update(source['refkey'])
 
-    def from_dap(self, dap_url, resolve_dap_doi=True):
-        dap_resource = DapResource(dap_url=dap_url)
-        reference = dap_resource.get_csl_reference(resolve_dap_doi)
-        if reference is not None:
-            self.reference = citeproc.source.Reference(**{**self.reference, **reference})
-        self.errors.append(dap_resource.errors)
-
-    def from_doi(self, doi):
-        doi_resource = DOIResource(doi=doi)
-        reference = doi_resource.get_csl_reference()
-        if reference is not None:
-            self.reference = citeproc.source.Reference(**{**self.reference, **reference})
-        self.errors.append(doi_resource.errors)
+    def from_csl_json(self, csl_json):
+        csl_json['id'] = 'refkey'
+        csl_json['type'] = 'dataset'
+        source = citeproc.source.json.CiteProcJSON([csl_json])
+        self.update(source['refkey'])
 
     def to_snippet(self, style):
+        if style == '':
+            self.errors = 'No style specified'
+            return None
         try:
             style_file = os.path.join(style_folder, style)
-            bib_style = citeproc.CitationStylesStyle(style=style_file, validate=True)
-        except ValueError:
-            return 'The style "{style}" is not available'.format(style=style)
+            bib_style = citeproc.CitationStylesStyle(style=style_file, validate=False)
+        except AttributeError:
+            self.errors = 'The style "{style}" is not available'.format(style=style)
+            return None
         except lxml.etree.XMLSyntaxError:
-            return 'The style "{style}" could not be processed'.format(style=style)
+            self.errors = 'The style "{style}" could not be processed'.format(style=style)
+            return None
         bib_source = citeproc.source.BibliographySource()
-        bib_source.add(self.reference)
+        bib_source.add(self)
         bibliography = citeproc.CitationStylesBibliography(bib_style, bib_source, citeproc.formatter.plain)
         citation = citeproc.Citation([citeproc.CitationItem('refkey')])
         bibliography.register(citation)
         if len(bibliography.bibliography()) > 0:
-            cite_string = str(bibliography.bibliography()[0])
+            snippet = str(bibliography.bibliography()[0])
         else:
-            cite_string = ''
-        return cite_string
+            snippet = None
+        return snippet
 
     def as_csl_json(self):
-        return str(dict(self.reference)).replace('\'', '"')
+        return str(dict(self)).replace('\'', '"')
 
-
+    def merge(self, other):
+        self.update(other)
