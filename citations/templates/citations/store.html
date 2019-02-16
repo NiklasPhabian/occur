@@ -9,7 +9,6 @@
 {% block content %}
 {% load static %}
 
-<link type="text/css" rel="stylesheet" href="{% static 'css/citation.css' %}">
 
 
 <div class="section">
@@ -42,31 +41,6 @@
 </div>
 
 
-
-
-
-<div class="section">
-    <div class="col s12 m7">
-        <div class="card horizontal small">
-            <div class="card-image">
-                <image src="{% static 'images/flow.png'%}" ></image>
-            </div>
-            <div class="card-stacked">
-                <div class="card-content">
-                    <h5 class="header">Explanation</h5>
-                    <blockquote>
-                        Paste a DAP URL to retrieve a permanent citation.
-
-                        If a citation for the same data has already been stored, OCCUR will redirect to this previously stored citation.
-                        Otherwise, a new citation reference will be stored.
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div class="section">
     <div class="col">
         <div class="card blue darken-1">
@@ -81,6 +55,38 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="section">
+    <div class="col s12 m7">
+        <div class="card-stacked">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h5 class="header">Explanation</h5>
+                    <blockquote>
+                        <p>
+                            Paste a DAP URL to retrieve a permanent citation.
+                        </p>
+                        <p>
+                            If a citation for the same data has already been stored, OCCUR will redirect to this previously stored citation.
+                            Otherwise, a new citation reference will be stored.
+                        </p>
+                        <p>
+                            A citation is defined solely by the query to the data (url), the timestamp of the citation creation,
+                            and the hash of the data at the time of citation creation.
+                        </p>
+
+                    </blockquote>
+                </div>
+                <div class="card-image">
+                    <image src="{% static 'images/store.png'%}"></image>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

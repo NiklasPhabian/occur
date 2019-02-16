@@ -48,13 +48,17 @@ class CitationExtended(Citation):
     title = models.CharField(max_length=200, default=None)
     author = models.CharField(max_length=200, default=None)
     institution = models.CharField(max_length=200, default=None)
-    doi = models.CharField(max_length=200, default=None)
     data = models.FileField(upload_to='media/', default=None)
     comment = models.TextField(default=None)
 
 
 class CitationMetaData(models.Model):
     citation_pk = models.IntegerField()
-    doi = models.CharField(max_length=200)
+
+
+class DOI(models.Model):
+    doi = models.CharField(max_length=200, default=None)
+    citation_id = models.IntegerField()
+
 
 

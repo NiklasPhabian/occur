@@ -1,13 +1,17 @@
 function init() {
-	$("#formatCitation").submit(updateCitationRow);
-	$("#formatForm").submit(updateCitationRow);
+    document.getElementById('formatCitation').onsubmit = updateCitationRow;
+    //document.getElementById('metadata').onclick = toMetadata;
     stylesAutocomplete();
 	$("#doiCol").hide();
-	$("#citation_row").hide();
 	$("#externalDOI").change(toggleExternalDoiRadio);
 	$("#dasDOI").change(toggleDasDoiRadio);
 	$("#ignoreDOI").change(toggleIgnoreDoiRadio);
+    document.getElementById("dasDOI").checked = true;
+}
 
+function toMetadata() {
+    document.getElementById('formatCitation').action='/citations/metadata'
+    document.getElementById('formatCitation').submit();
 }
 
 
@@ -36,7 +40,6 @@ function toggleExternalDoiRadio() {
 }
 
 
-
 function stylesAutocomplete() {
     $.ajax({
       type: 'GET',
@@ -44,7 +47,6 @@ function stylesAutocomplete() {
       success: function(response) {
         var stylesData = {};
         var stylesArray = JSON.parse(response);
-
         for (var i = 0; i < stylesArray.length; i++) {
             stylesData[stylesArray[i]] = null;
             console.log(stylesArray[i]);
@@ -74,49 +76,54 @@ function copyCitation() {
 }
 
 
-
 function updateCitationRow() {
-    var dapUrl = null;
-    var doi = null;
-    var doiSource = null;
+    data = {};
 
     if ($("#dapUrl").length) {
-	    var dapUrl = $("#dapUrl").val().trim();
+	    data.dapUrl = $("#dapUrl").val().trim();
 	}
+
 	if ($("#doiSource").length) {
-	    var doiSource = $("#doiSource").val().trim()
-	    if (doiSource == 'external') {
-	        if ($("#doi").length) {
-	            var doi = $("#doi").val().trim()
-	        }
-    	}
+	    data.doiSource = $("#doiSource").val().trim();
 	}
+
+    if ($("#doi").length) {
+        data.doi = $("#doi").val().trim();
+    }
+
+    if ($("#style").length) {
+        data.style = $("#style").val();
+    }
+
+    $("#citation_row").hide();
+    $("#error_row").hide();
 
 	$.ajax({
-		url : "/citations/format/",
-		data : {
-		    doi : doi,
-			dapUrl : dapUrl,
-			doiSource: doiSource,
-			style : $("#style").val()
-		},
+		url : "/citations/make_snippet/",
 		dataType : "json",
+		data : data,
 		success : function(data) {
-		    $("#citation").val(data.snippet);
-            M.textareaAutoResize($('#citation'));
-			$("#citation_row").show();
-			if ($("#doiSource").length) {
-			    $("#error_row").show();
-	            $("#error_row").text(data.error);
-			}
-
-
+		    if (data.snippet) {
+		        $("#citation").val(data.snippet);
+		        $("#request_url").text(data.url);
+                M.textareaAutoResize($('#citation'));
+			    $("#citation_row").show();
+            }
+            if (data.error.length>0) {
+                $("#error_row").show();
+                list = document.getElementById("error_list");
+                list.innerHTML = ''
+                for (var i = 0; i < data.error.length; i++) {
+                    var item = document.createElement('li');
+                    item.appendChild(document.createTextNode(data.error[i]));
+                    list.appendChild(item);
+                }
+            }
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			$("#citation_row").hide();
 			alert(jqXHR.responseText);
 		}
-
 
 	});
 	return false;
