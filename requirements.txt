@@ -1,7 +1,7 @@
-certifi==2018.10.15
+certifi==2018.11.29
 chardet==3.0.4
-citeproc-py===0.4.0-23-g2c40324
-Django==2.1.2
+citeproc-py==0.4.0
+Django==2.1.7
 gunicorn==19.9.0
 idna==2.7
 lxml==4.2.5

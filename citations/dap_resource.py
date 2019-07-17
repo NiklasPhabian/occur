@@ -23,7 +23,7 @@ class DapResource:
     def parse_url(self):
         if self.dap_url[0:4] != 'http':
             self.dap_url = 'http://' + self.dap_url
-        self.base_url = self.dap_url.split('?')[0]
+        self.base_url = '.'.join(self.dap_url.split('.')[:-1])
         if '?' in self.dap_url:
             self.subset_parameters = self.dap_url.split('?')[-1]
         else:
@@ -100,6 +100,12 @@ class DAS:
 
     def __str__(self):
         return self.global_dict
+
+    def to_reference(self):
+        reference_dict = self.to_reference_dict()
+        reference = Reference()
+        reference.from_dict(reference_dict)
+        return reference
 
     def parse(self, das):
         if 'global {' not in das.lower():

@@ -99,3 +99,4 @@ class Reference(citeproc.source.Reference):
 
     def __str__(self):
         return self.as_csl_json()
+
