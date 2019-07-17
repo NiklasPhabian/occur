@@ -8,14 +8,14 @@
 
 {% block content %}
 
+{% load static %}
+
 
 <script type="text/javascript" src="/static/js/ui.js"></script>
 
 <div class="section">
     <h3> Format Citation (Crosscite) </h3>
-    <form id="formatForm" action="">
-
-
+    <form id="formatCitation" action="">
         <div class="row">
             <div class="input-field col s12">
                 <label for="doi">DOI</label>
@@ -26,14 +26,11 @@
             </div>
         </div>
 
-        <input type="text" name="doiSource" id="doiSource" value="external" hidden/>
-
         <div class="row">
             <div class="input-field col s12">
                 <label for="style">Formatting Style</label>
                 <input type="text"
                        id="style"
-                       class="autocomplete"
                        name="style"
                        autocomplete="off"/>
                 <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
@@ -46,6 +43,17 @@
             </button>
         </div>
     </form>
+</div>
+
+<div class="section">
+    <div class="row" id="error_row" style="display: none;">
+        <div class="card red lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Errors/Warnings</span>
+                <ul id="error_list"></ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="section">
@@ -63,27 +71,14 @@
 </div>
 
 
-
-
-
-<div class="section">
-    <blockquote>
-        <h4> Explanation</h4>
-        This is a replication of the crosscite.org citation formatter <a href="https://crosscite.org/">https://crosscite.org/</a>.
-        In contrary to crosscite.org, this service allows to generate a citation from any site that supports the accept header:
-        "application/rdf+xml" through content negotiation.
-    </blockquote>
-
-</div>
-
 <div class="section">
     <div class="col">
         <div class="card blue darken-1">
             <div class="card-content white-text">
-                <span class="card-title">A citation can also be formatted through the OCCUR API:</span>
+                <span class="card-title">The citation can also be formatted through the OCCUR API:</span>
                 <p>
-                    <code>
-                        www.occur.duckdns.org/citations/crosscite/?doi=$DAP_URL&format=$FORMAT
+                    <code id="request_url">
+                        www.occur.duckdns.org/citations/crosscite/?doi=$DAP_URL&style=$FORMAT
                     </code>
                 </p>
             </div>
@@ -92,35 +87,31 @@
     </div>
 </div>
 
+<div class="section">
+
+</div>
 
 
-<!-- Scripts -->
-<script>
-    function copyCitation() {
-  /* Get the text field */
-  var copyText = document.getElementById("citation");
+<div class="section">
+    <div class="col s12 m7">
+        <div class="card">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <blockquote>
+                        <h4> Explanation</h4>
+                        This is a replication of the crosscite.org citation formatter <a href="https://crosscite.org/">https://crosscite.org/</a>.
+                        In contrary to crosscite.org, this service allows to generate a citation from any site that supports the accept header:
+                        "application/vnd.citationstyles.csl+json" through content negotiation.
+                    </blockquote>
+                </div>
 
-  /* Select the text field */
-  copyText.select();
-
-  /* Copy the text inside the text field */
-  document.execCommand("copy");
-}
-</script>
-
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('input.autocomplete').autocomplete({
-      data: {
-        {% for style in styles %}
-            "{{style}}" : null,
-        {% endfor %}
-      },
-    });
-  });
-</script>
-
+                <div class="card-image">
+                    <image src="{% static 'images/crosscite.png'%}" ></image>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

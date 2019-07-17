@@ -47,30 +47,6 @@
                 {{ citation.data_hash }}
             </div>
         </li>
-        <li class="">
-            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
-                DAS URL:
-            </div>
-            <div class="collapsible-body">
-                <a href={{das_url}}> {{ das_url }} </a>
-            </div>
-        </li>
-        <li class="">
-            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
-                BibTeX representation:
-            </div>
-            <div class="collapsible-body">
-                {{ bib }}
-            </div>
-        </li>
-        <li class="">
-            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
-                CSLJson representation:
-            </div>
-            <div class="collapsible-body">
-                {{ csljson }}
-            </div>
-        </li>
     </ul>
 
     <a class="waves-effect waves-light blue lighten-1 btn" onClick="expandAll();">
@@ -82,26 +58,11 @@
 
 </div>
 
-<!--
-<ul class="collection with-header">
-    <li class="collection-item"><h5>Citation</h5> </li>
-    <li class="collection-item"><h6> Occur Citation UID: </h6>      {{ uid }} </li>
-    <li class="collection-item"><h6> Occur Citation PK: </h6>       {{ citation.pk }} </li>
-    <li class="collection-item"><h6> DAP URL: </h6>                 <a href={{citation.dap_url}}>{{ citation.dap_url }}</a></li>
-    <li class="collection-item"><h6> Creation time: </h6>           {{ citation.created_at|date:'Y-m-d H:i' }} (UTC) </li>
-    <li class="collection-item"><h6> Stored data_hash: </h6>        {{ citation.data_hash }}</li>
-    <li class="collection-item"><h6> Dap URL: </h6>                 {{ dap_url }}</li>
-    <li class="collection-item"><h6> DAS URL: </h6>                 {{ das_url }}</li>
-    <li class="collection-item"><h6> BibTeX representation: </h6>   {{ bib }}</li>
-    <li class="collection-item"><h6> CSLJson representation: </h6>  {{ csljson }}</li>
-</ul>
--->
-
 
 <script type="text/javascript" src="/static/js/ui.js"></script>
 
 <h3> Format This Citation</h3>
-<form id="formatForm" action="">
+<form id="formatCitation" action="">
     <div class="row">
         <div class="input-field col s12">
             <label for="style">Formatting Style</label>
@@ -114,58 +75,69 @@
         </div>
     </div>
     <input type="hidden" id="dapUrl" name="dapUrl" value="{{citation.dap_url}}"/>
-       <p>
-            <label>
-                <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
-                <span>Ignore DOI</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
-                <span>Extract DOI from DAS</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input class="with-gap" name="doiSelector" type="radio" id="externalDOI"/>
-                <span>Manually provide a DOI</span>
-            </label>
-        </p>
+    <p>
+        <label>
+            <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
+            <span>Extract DOI from DAS</span>
+        </label>
+    </p>
+    <p>
+        <label>
+            <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
+            <span>Ignore DOI</span>
+        </label>
+    </p>
+    <p>
+        <label>
+            <input class="with-gap" name="doiSelector" type="radio" id="externalDOI"/>
+            <span>Manually provide a DOI</span>
+        </label>
+    </p>
 
-        <input type="text" name="doiSource" id="doiSource" hidden/>
+    <input type="text" name="doiSource" id="doiSource" hidden/>
 
-        <div class="row">
-            <div class="input-field col s12" id="doiCol">
-                <label for="doi">DOI</label>
-                <input type="text"
-                       id="doi"
-                       name="doi"/>
-                <span class="helper-text">Paste DOI here</span>
-            </div>
+    <div class="row">
+        <div class="input-field col s12" id="doiCol">
+            <label for="doi">DOI</label>
+            <input type="text"
+                   id="doi"
+                   name="doi"/>
+            <span class="helper-text">Paste DOI here</span>
         </div>
+    </div>
 
-        <div class="row">
-            <button type="submit"
-                    class="waves-effect waves-light blue lighten-1 btn-small">
-                Format Citation
-            </button>
-        </div>
+    <div class="row">
+        <button type="submit"
+                class="waves-effect waves-light blue lighten-1 btn-small">
+            Format Citation
+        </button>
+    </div>
 
 </form>
 
 
 
-</br>
-
-<div class="row" id="citation_row" style="display: none;">
-    <div class="card blue darken-1">
-        <div class="card-content white-text">
-            <span class="card-title">Citation Snippet</span>
-            <textarea id="citation" class="materialize-textarea white-text" value=""></textarea>
+<div class="section">
+    <div class="row" id="error_row" style="display: none;">
+        <div class="card red lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Errors/Warnings</span>
+                <ul id="error_list"></ul>
+            </div>
         </div>
-        <div class="card-action">
-            <button onclick="copyCitation()" class="waves-effect waves-light blue lighten-1 btn-small">Copy Citation</button>
+    </div>
+</div>
+
+<div class="section">
+    <div class="row" id="citation_row" style="display: none;">
+        <div class="card blue lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Citation Snippet</span>
+                <textarea id="citation" class="materialize-textarea white-text" value=""></textarea>
+            </div>
+            <div class="card-action">
+                <button onclick="copyCitation()" class="waves-effect waves-light blue lighten-1 btn-small">Copy Citation</button>
+            </div>
         </div>
     </div>
 </div>
@@ -175,9 +147,6 @@
 
 
 
-
-<!-- Scripts -->
-<!-- Expand Collapsible-->
 
 <script type="text/javascript">
 var elem = document.querySelector('.collapsible.expandable');
@@ -203,33 +172,6 @@ function collapseAll(){
 </script>
 
 
-<!-- Copy Citations -->
-<script>
-    function copyCitation() {
-  /* Get the text field */
-  var copyText = document.getElementById("citation");
-
-  /* Select the text field */
-  copyText.select();
-
-  /* Copy the text inside the text field */
-  document.execCommand("copy");
-}
-</script>
-
-
-<!-- Autocomplete-->
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('input.autocomplete').autocomplete({
-      data: {
-        {% for style in styles %}
-            "{{style}}" : null,
-        {% endfor %}
-      },
-    });
-  });
-</script>
 
 
 

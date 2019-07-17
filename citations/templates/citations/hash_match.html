@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="section">
+    <h3>Resolved</h3>
+    The citation could be resolved to data stored at:
+    </br>
+        <a href="{{ dap_url }}">{{ dap_url }}</a>.
+    </br>
+    The data does not appear to have changed since the creation of the citation.
+</div>
+
+
+
+
+
+
+
+<div class="section">
+    <ol>
+        <li>
+            You may choose to access the original citation <a href="{% url 'citations:details' %}{{ pk }}">here</a>
+        </li>
+        <li>
+            Access the dataset <a href="{{ dap_url }}">here</a>
+        </li>
+
+    </ol>
+
+
+</div>
+
+
+
+
+
+{% endblock %}
