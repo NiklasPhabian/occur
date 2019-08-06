@@ -110,70 +110,14 @@
     </p>
 </div>
 
-<<<<<<< HEAD
+
 <div class="section" align="justify">
     <h3>Comparison to <a href='http://doi.org/10.15497/RDA00016'>RDA Recommendations</a></h3>
     The Working Group on Data Citation (WGDC) lined out 14 recommendations for the citation of evolving data.
     The following figure evaluates the compliance of the current state of OCCUR with these recommendations.
     <image src="{% static 'images/RDA.png'%}" width="100%"></image>
 <div>
-=======
 
-
-
-
-<div class="section" align="justify">
-    <h3>Background</h3>
-
-    <p>
-        Datasets  may evolve over time through updates, appendation, or deletion [Klump2016].
-        We refer to these datasets as revisable data to
-        delimit the term from datasets changing over time due to malicious manipulation or through data rot.
-    </p>
-
-    <p>
-        A revisable dataset is anticipated and intended to change its <i>state</i> over time.
-        A citation system consequently has be able to distinguish between the states of a
-        revisable dataset [Rauber2015, Klump2016].
-        To achieve this, merely the abstract state that a citation is referencing has to remain fixed
-        (i.e. there cannot be ambiguity of the referenced state).
-        This is true independently of the ability to de-reference a citation to the
-        referenced state (i.e. the actual state being fixed).
-    </p>
-
-    <p>
-        Identifying and referencing an ephemeral state of a dataset is a necessary requirement for data citation.
-        The ability to persistently retrieve these states however is a data <b>publication</b> challenge (not a data citation challange).
-        It is hereby up to the publisher and repository to choose an apt level of zeal:
-    </p>
-
-    <dl>
-        <dt><STRONG>Pessimistic</STRONG></dt>
-        <dd>
-            Data is assumed to be ephemeral and consequently citations can never be de-referenced.
-        </dd>
-        <DT><STRONG>Optimistic</STRONG></DT>
-        <dd>
-            Data is assumed to be fixed. Citations always de-reference to the current state of the data.
-        </dd>
-        <DT><STRONG>Opportunistic</STRONG></DT>
-        <dd>
-            Data is assumed to remained fixed for some time.
-            Citations can be de-referenced only until the data changes.
-        </dd>
-        <DT><STRONG>Pedantic</STRONG></DT>
-        <dd>
-            Every state of the data is saved.
-            Consequently citations can always be de-referenced to the referenced state.
-        </dd>
-    </dl>
-
-    <p>
-        OCCUR implements an opportunistic approach for the de-referencing of citations.
-        While OCCUR guarantees citations to be unique and fixed, the referenced dataset may become unavailable
-        (note: the referenced data cannot <i>change</i> since a citation is referencing a fixed state).
-    </p>
-</div>
 
 
 <div class="section" align="justified">
@@ -189,7 +133,7 @@
 </div>
 
 
-<div class="section" align="justify" style="display: none;">
+<div class="section" align="justify"  style="display: none;">
     <h3>Literature Review</h3>
 
     <p>
@@ -278,7 +222,6 @@
     </p>
 
 
-
     <p id="foot868">[1]
         <A NAME="tex2html27" HREF="https://library.stanford.edu/research/data-management-services/data-best-practices/data-versioning">https://library.stanford.edu/research/data-management-services/data-best-practices/data-versioning</A>
     </p>
@@ -304,128 +247,6 @@
 
 </div>
 
-
-=======
-</div>
-
-
-<div class="section" align="justify" style="display: none;">
-    <h3>Literature Review</h3>
-
-    <p>
-        [Klump2016] makes a hard distinguishing between growing, and updated dataset. Identifying a state of a growing dataset can simply be implemented through time ranges, given that records are timestamped.
-    </p>
-
-    <p>
-        Versioning can be used to identify states of revisable data. Note that &ldquo;version&rdquo; is sometimes used synonymously with &ldquo;state&rdquo;
-        (of a dataset or a single record). However, in the following, I will use the term &ldquo;version&rdquo; as a policy-prescribed reference to a state.
-    </p>
-
-    <p>
-        Versioning is intuitive and can trivially be implemented e.g. by appending version number suffixes to dataset names <a href="#foot868"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></a>.
-        However, since versioning is merely a <i>policy</i>, there is no guarantee for enforcement.
-        Further, &ldquo;There is currently no agreed standard or recommendation among data communities as to why, how and when data should be versioned&rdquo;
-        <A NAME="tex2html28" HREF="footnode.html#foot869"><SUP><SPAN CLASS="arabic">13</SPAN></SUP></A>.
-        The W3C
-        <A NAME="tex2html30" HREF="footnode.html#foot870"><SUP><SPAN CLASS="arabic">14</SPAN></SUP></A>
-        provides some guidance on how revisable data should be handled on the web, however, RDA
-        <A NAME="tex2html32" HREF="footnode.html#foot871"><SUP><SPAN CLASS="arabic">15</SPAN></SUP></A> considers theses standards too simple and not scalable.
-    </p>
-
-    <p>
-        A major concern in data versioning is how to reach &ldquo;consensus about when changes to a dataset should cause it to be considered a different dataset altogether rather than a new version&rdquo;<A NAME="tex2html34"
-                                                                                                                                                                                                               HREF="footnode.html#foot872"><SUP><SPAN CLASS="arabic">16</SPAN></SUP></A>.
-        From a pure identity perspective, this question is futile since every relevant state needs to be identifiable. The distinguishing between version versus state therefore is mainly connected to the nature of PID (and the costs associated with minting them) Klump2016 as well as the notion of hierarchical association and provenance.
-    </p>
-
-    <p>
-        [Barkstrom2003] attempts to structure the semantics of datasets versions by suggesting a 4-level tiering: Data products (Level 1) are collections of datasets (Level 2).
-        Datasets within a data product represent homogeneous observations but may stem from different measurement sources (e.g. instruments).
-        A dataset may have different dataset versions (Level 3). Within a dataset version, algorithms and input (e.g. calibration) parameters are fixed.
-        Finally, a dataset version may have different datset version variants, within which all production configurations (OS, compiler, source code) are held constant.
-    </p>
-
-    <p>
-        For the WDC-RSAT data, DOI are assigned at the product level. The datasets in the product may be appended without issuing a new DOI. Only when data is reprocessed (new algorithm used), new DOI are assigned to the dataset [Huber2015].
-    </p>
-
-    <p>
-        [AltKin07] suggest to treat different version of datasets as separate datasets and cite them independently.
-        This suggestion is implemented by the SEDAC[#!Downs2013!#].
-        Every change in the dataset triggers a version increase which is associated with a new DOI. The landing pages of newer versions reference to older versions.
-    </p>
-
-    <p>
-        The data publishing services Zenodo, dryad, and Fighsare offer the option to mint a DOI to represent all dataset versions (&ldquo;base-DOI&rdquo;) and additional DOI to point to specific versions
-        <A NAME="tex2html36" HREF="footnode.html#foot873"><SUP><SPAN CLASS="arabic">17</SPAN></SUP></A> (&ldquo;version-DOI&rdquo;).
-        Figshare will automatically trigger a new version when changes are made to the data. Figshares version-DOI are semantic and are created from the appendation of the base-DOI with <SPAN CLASS="MATH"><IMG
-            WIDTH="59" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
-            SRC="img1.png"
-            ALT="$v&lt;x&gt;$"></SPAN>, where <SPAN CLASS="MATH"><IMG
-            WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
-            SRC="img2.png"
-            ALT="$x$"></SPAN> is the version number. Zenodo, on the other side refers to semantic DOI as bad practice and mints semantically independent DOI for different versions and recommends to semantically link connected DOI.
-    </p>
-
-    <P>
-        The BCO-DMO<A NAME="tex2html38"
-                      HREF="footnode.html#foot874"><SUP><SPAN CLASS="arabic">18</SPAN></SUP></A> employs more flexible rules: Changes to the data that result in different conclusions trigger a major version increment.
-        Such changes include every record update and deletion as well as changes in the data schema.
-        A major version increment is treated as an independent entity with its own DOI and landing page. Inserts will trigger metadata updates. A metadata update will cause a minor version increment. Minor version increments are not treated as separate entities and share the same DOI.
-
-    <P>
-        As mentioned above, it is open for debate whether or not reproducability is a hard requirement for data citations of a revisable dataset. If not, resolving of citations could be deprecated altogether (pessimistic), or only allowed until the data has changed (opportunistic). The opportunistic approach could e.g. be implemented by timestamping modifications (last modification date) or through fixity checking. The RDA WGDC Rauber2015 elaborates on this approach: A dataset (or a subset) should be given a new identity when the data has changed since the last time the dataset (or subset) was requested. This is recommended to be implemented through the use of a normalized query store and checksums Ball2015.
-
-    <P>
-        [#!Gray2002!#] however advocate for all non-regeneratable data to remain available forever and  [#!Buneman2010!#] suggest a dataset to remain accessible once it has been cited. In their implementation, a citation can include a version number, allowing the system to de-refrence the citation to the according state. A similar approach is implemented in the dataverse Crosas2011, where citations optionally can contain a dataset version number.
-
-    <P>
-        A simple way of keeping previous states availability is snapshotting. However, versioning and snapshotting at fixed points in time does not suit well for users of (near) real-time data  Huber2015. Further, depending on the size and revision frequency, storing all revisions as separate exports may not be feasible Rauber2015. To circumvent these issues [#!AltKin07!#] as well as the RDA WGDC Rauber2015a, Rauber2015, Proll2013 recommend to store state changes on a record-level rather than on a dataset level: Every state of every record remains persistently stored and is associated with the CUD operation that touched it. All CUD operations are timestamped allowing to identify the validity period of every state.
-
-    <P>
-        This approach is implemented by [#!Alawini2017!#], who created a citation service for the eagle-iV database. Since this database itself does not version its data (only the most recent version is visible), the authors implemented an external service that versions eagle-iV data in order to provide fixity to the users. The service tracks and stores every change in the original dataset.  The authors note that this approach is viable for eagle-iV since the dataset changes very slowly.
-
-    <P>
-        The concept of versioning at record-level challenges the common understanding of a dataset-wide versioning and opens a debate about whether two subsets of two different dataset-level versions containing identical data should be identified as the same subset or not.
-
-    <P>
-
-    <p>
-        <span class="bold">Niklas Griessbaum</span><br>
-        <span class="bold">Bren School of Environmental Science &amp; Management</span><br>
-        2400 Bren Hall, University of California, Santa Barbara CA 93106-5131<br>
-        <span class="italic">A professional graduate school founded in 1991</span>
-    </p>
-
-
-
-    <p id="foot868">[1]
-        <A NAME="tex2html27" HREF="https://library.stanford.edu/research/data-management-services/data-best-practices/data-versioning">https://library.stanford.edu/research/data-management-services/data-best-practices/data-versioning</A>
-    </p>
-    <p>
-        [Klump2016] Jens Klump, Robert Huber, and Michael Diepenbroek. “DOI for geoscience data - how early practices shape present perceptions”.
-        In: Earth Science Informatics 9.1 (Mar. 2016), pp. 123–136. issn: 1865-0473. doi: 10 . 1007 / s12145 - 015 -0231-5. url: http://link.springer.com/10.1007/s12145-015-0231-5.
-    </p>
-    <p>
-        [Rauber2015] Andreas Rauber, Ari Asmi, Dieter Van Uytvanck, et al. “Identification of Reproducible Subsets for Data Citation, Sharing and Re-Use (draft)”. In: Bulletin of the IEEE-TCDL (2015), pp. 6–15.
-    </p>
-    <p>
-
-        [Barkstorm2013] Bruce Barkstrom. “Data Product Configuration Management and Versioning in Large-Scale Production of Satellite Scientific Data”. In: Software Configuration Management 2649 (2003), pp. 118–133. issn: 03029743. doi: https://doi.org/10.1007/3-540-39195-9_9.
-    </p>
-    <p>
-        [Huber2015] Robert Huber et al. “Data citation and digital identifiers for time series data / environmental research infrastructures”. In: (2015). doi: 10.6084/m9.figshare.1285728.
-    </p>
-    <p>
-        [AltKin07] Micah Altman and Gary King. “A Proposed Standard for the Scholarly Citation of Quantitative Data”. In: D-Lib Magazine 13 (Mar. 2007). url: http://www.dlib.org/dlib/march07/altman/03altman.html.
-    </p>
-
-
-
-</div>
-
-
-</div>
 
 
 {% endblock %}
