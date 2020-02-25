@@ -52,10 +52,10 @@
                 <li><a href="{% url 'sitepages:about' %}">About</a></li>
                 {% endif %}
 
-                {% if store %}
-                <li class="active"><a href="{% url 'citations:store' %}">Store</a></li>
+                {% if identify %}
+                <li class="active"><a href="{% url 'citations:identify' %}">Identify</a></li>
                 {% else %}
-                <li><a href="{% url 'citations:store' %}">Store</a></li>
+                <li><a href="{% url 'citations:identify' %}">Identify</a></li>
                 {% endif %}
 
                 {% if stored%}
@@ -102,7 +102,7 @@
     <ul class="sidenav" id="mobile-demo">
         <li><a href="/">Home</a></li>
         <li><a href="{% url 'sitepages:about' %}">About</a></li>
-        <li><a href="{% url 'citations:store' %}">Store</a></li>
+        <li><a href="{% url 'citations:identify' %}">Identify</a></li>
         <li><a href="{% url 'citations:stored' %}">Stored</a></li>
         <li><a href="{% url 'citations:dereference' %}">DeReference</a></li>
         <li><a href="{% url 'citations:format_dap' %}">FormatDAP</a></li>

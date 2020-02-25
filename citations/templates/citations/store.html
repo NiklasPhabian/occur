@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block active %}
-{% with store=True %}
+{% with identify=True %}
 {{ block.super }}
 {% endwith%}
 {% endblock active%}
@@ -12,7 +12,7 @@
 
 
 <div class="section">
-    <h3>Store a Citation</h3>
+    <h3>Retrieve data Identity</h3>
     <form id="store_form">
         <div class="row">
             <div class="input-field col s12">
@@ -27,7 +27,7 @@
             <button type="submit"
                     class="waves-effect waves-light blue lighten-1 btn-small"
                     formaction="">
-                Store Citation
+                Retrieve Identity
             </button>
             <!--
             <button type="submit"
@@ -45,10 +45,10 @@
     <div class="col">
         <div class="card blue darken-1">
             <div class="card-content white-text">
-                <span class="card-title">A citation can also be saved through the OCCUR API:</span>
+                <span class="card-title">Data identity can also be retrieved through the OCCUR API:</span>
                 <p>
                     <code>
-                        www.occur.duckdns.org/citations/store/?dap_url=$DAP_URL
+                        www.occur.duckdns.org/citations/identify/?dap_url=$DAP_URL
                     </code>
                 </p>
             </div>
@@ -66,15 +66,14 @@
                     <h5 class="header">Explanation</h5>
                     <blockquote>
                         <p>
-                            Paste a DAP URL to retrieve a permanent citation.
+                            Paste a DAP URL to retrieve a data identity.
                         </p>
                         <p>
-                            If a citation for the same data has already been stored, OCCUR will redirect to this previously stored citation.
+                            If an identity for the same data has already been stored, OCCUR will redirect to this previously stored citation.
                             Otherwise, a new citation reference will be stored.
                         </p>
                         <p>
-                            A citation is defined solely by the query to the data (url), the timestamp of the citation creation,
-                            and the hash of the data at the time of citation creation.
+                            An identity is defined solely by the query to the data (url), the timestamp of the creation, and the hash of the data at the time of citation creation.
                         </p>
 
                     </blockquote>

@@ -1,6 +1,6 @@
 import requests
 import json
-from .citeproc_interface import Reference
+#from .citeproc_interface import Reference
 
 
 class DOIResource:
@@ -47,7 +47,7 @@ class DOIResource:
 
 
 if __name__ == '__main__':
-    doi = '10.1145/2783446.2783605'
+    doi = '10.1016/1049-9652(92)90032-S'
     doi_resource = DOIResource(doi)
     doi_resource.download_csl_json()
     print(doi_resource.csl_json)
