@@ -47,11 +47,12 @@
 \glsunsetall
 \section*{Abstract}
 \begin{abstract} 
-    \gls{OCCUR} is the \gls{OPeNDAP} citation creator and as such is a partial implementation of the RDA WGDC recommendations. It addresses the need for a system to identify subsets of revisable datasets.
-    It is a third-party webservice that allows the retrieval of identities to data accessed through the OPeNDAP protocol. In OCCUR, an identity is defined through the OPeNDAP query that produced the data as well as a hash of the result set. 
-    Identities are associated with actionable identifiers that can be de-referenced to landing pages and the referenced data data as well as used to produce human-readable citation snippets. 
-    During de-referencing, the identity's hash is used for result set verification to identify differences between the current, and the referenced state of the data.
-    For the generation of citation snippets, dataset-level metadata found in the \gls{DAS}, the identity's query, the point in time of the identity creation, and the identity's hash are sourced and formatted through the use of citeproc.
+\gls{OCCUR} is third-party web service that creates citations for data delivered by the \gls{OPeNDAP} data access protocol.
+As a partial implementation of the \gls{RDA} \gls{WGDC} guidelines, it addresses the need to identify arbitrary subsets of revisable datasets.
+OCCUR creates identifiers from a combination of an OPeNDAP query and a hash of the query's result set.
+OCCUR can then de-reference these identifiers to access the data via OPeNDAP, and to generate human-readable citation snippets.
+When accessing data via an identifier, OCCUR compares the identifier's hash to the hash of the retrieved data, to determine whether the data has changed since it was cited.
+OCCUR uses CiteProc to generate citation snippets from the identifier's creation timestamp, OPeNDAP query, and data hash, and from dataset-level metadata provided by OPeNDAP.
 \end{abstract}
 \glsresetall
 
