@@ -255,6 +255,10 @@ A very similar approach is implemented for the \gls{ARM} Data Archive \citep{Pra
 \cite{Proll2013} present a reference implementation for data citations to data managed by a \gls{RDBMS}. 
 The system is based on the premise that a timestamped SELECT query can correctly identify data. To allow revisability, the system timestamps every \gls{CUD} operation and acknowledges validity timeranges of records rather than allowing modification of records. When a user wants to create a citable subset, the system will store the according timestamped SELECT query, calculates a hash for the result set and assigns a PID to the query. 
 
+\cite{Schubert2019} recognize that a manual identification of data is impractical and imprecise. The authors developed a dynamic data citation solution for the data service \gls{CCCA} which closely follow the \gls{RDA} \gls{WGDC} \citep{Rauber2015, Rauber2015} recommendations. CCCA is a a webservice that allows subsetting of data through restful queries and is based on \gls{TDS}.
+The metadata of a subset is constructed as the concatenation of the dataset metadata and the query arguments as well as name of subset creator and check-sums. 
+Handle is used as a PID service
+
 
 \citep{Buneman2010}: Rule based citation approach; application IUPHAR DB and EAD
 \citep{Buneman2016}: Rule based citation approach; application: MODIS and IUPHAR 
@@ -271,6 +275,7 @@ The system is based on the premise that a timestamped SELECT query can correctly
     ARM         & DOIs/Name     & Versioning     & None     & Textual \\
     NITRC       & DOIs          & N/A            & None     & DOIs  \\
     RDBMS       & PID           & CUD TS         & UNFs     & Query \\
+    CCCA        & Handle        & Versioning    & No       & Query \\
 \bottomrule     
 \end{tabular}
 \label{tab_citcomp}
