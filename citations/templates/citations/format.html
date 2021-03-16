@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with format=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
+{% block content %}
+
+{% load static %}
+
+
+<script type="text/javascript" src="/static/js/ui.js"></script>
+
+<div class="section">
+    <h3> Format Citations</h3>
+    <form id="formatCitation" method="get">
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="dapUrl">DAP URL</label>
+                <input  type="text"
+                        id="dapUrl"
+                        name="dapUrl"
+                        class="form-control"/>
+                <span class="helper-text">Paste a DAP URL here</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="style">Formatting Style</label>
+                <input type="text"
+                       id="style"
+                       name="style"
+                       autocomplete="off"/>
+                <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
+            </div>
+        </div>
+
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
+                <span>Extract DOI from DAS</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
+                <span>Ignore DOI</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input class="with-gap" name="doiSelector" type="radio" id="externalDOI"/>
+                <span>Manually provide a DOI</span>
+            </label>
+        </p>
+
+        <input type="text" name="doiSource" id="doiSource" hidden/>
+
+        <div class="row">
+            <div class="input-field col s12" id="doiCol">
+                <label for="doi">DOI</label>
+                <input type="text"
+                       id="doi"
+                       name="doi"/>
+                <span class="helper-text">Paste DOI here</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="submit" formaction="format"
+                    class="waves-effect waves-light blue lighten-1 btn-small">
+                Format Citation
+            </button>
+
+            <button type="button" id="metadata" formaction="metadata" style="display: none;"
+                    class="waves-effect waves-light blue lighten-1 btn-small">
+                View Metadata
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<div class="section">
+    <div class="row" id="error_row" style="display: none;">
+        <div class="card red lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Errors/Warnings</span>
+                <ul id="error_list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="row" id="citation_row" style="display: none;">
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Citation Snippet</span>
+                <textarea id="citation" class="materialize-textarea white-text" value=""></textarea>
+            </div>
+            <div class="card-action">
+                <button onclick="copyCitation()" class="waves-effect waves-light blue lighten-1 btn-small">Copy Citation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="section">
+    <div class="col">
+        <div class="card blue darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">The citation can also be formatted through the OCCUR API:</span>
+                <p>
+                    <code id="request_url">
+                        www.occur.duckdns.org/citations/format/?doi=$DOI&dapUrl=$DAPURL&doiSource=das&style=$STYLE
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="section">
+    <div class="col s12 m7">
+        <div class="card">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <blockquote>
+                        <h4> Explanation</h4>
+                        Paste a DAP URL and select a Formatting Style to retrieve a formatted citation.
+                        You may optionally add a DOI to source additional metadata.
+                    </blockquote>
+
+                    
+                    <div class="card-image">
+                        <image src="{% static 'images/format.png'%}" ></image>
+                    </div>
+                    
+                    <p>
+                        OCCUR extracts metadata from the "global" section of the DAS (the part that satisfies 
+                        <code class=" language-markup"> /(?<=global {.*(?=})/ims)</code>.
+                        Any legal citeproc-py keyword will be extracted. AS of 2019-04-19, legal keywords are:
+                    </p>
+                    
+                    <br>
+                    
+                    <p>
+                        <strong>NAMES</strong> = ['author', 'collection_editor', 'composer', 'container_author', 'editor', 'editorial_director', 'illustrator', 'interviewer', 'original_author', 'recipient', 'translator']
+                    </p>
+                    <p>                   
+                        <strong>DATES </strong> = ['accessed', 'container', 'event_date', 'issued', 'original_date', 'submitted']
+                    </p>
+                    <p>
+                        <strong>NUMBERS </strong> = ['chapter_number', 'collection_number', 'edition', 'issue', 'number', 'number_of_pages', 'number_of_volumes', 'volume']
+                    </p>
+                    <p>
+                        <strong>VARIABLES</strong> = ['abstract', 'annote', 'archive', 'archive_location', 'archive_place', 'authority', 'call_number', 'citation_label', 'citation_number', 'collection_title', 'container_title', 'container_title_short', 'dimensions', 'DOI', 'event', 'event_place', 'first_reference_note_number', 'genre', 'ISBN', 'ISSN', 'jurisdiction', 'keyword', 'language', 'locator', 'medium', 'note', 'original_publisher', 'original_publisher_place', 'original_title', 'page', 'page_first', 'PMCID', 'PMID', 'publisher', 'publisher_place', 'references', 'section', 'source', 'status', 'title', 'title_short', 'URL', 'version', 'year_suffix'] 
+                    </p>
+                    
+                </div>
+                
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

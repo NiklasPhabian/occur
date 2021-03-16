@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with dereference=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock active%}
+
+{% block content %}
+
+{% load static %}
+
+
+
+<section>
+    <div class="section">
+        <h3> De-Reference an Identifier</h3>
+        <form id="form" action="">
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="identifier">OCCUR identifier</label>
+                    <input  type="text"
+                            id="identifier"
+                            name="identifier"
+                            class="form-control"/>
+                    <span class="helper-text">Paste an OCCUR identifer (PK, or UID) here</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <button onclick="document.getElementById().submit()"
+                        class="waves-effect waves-light blue lighten-1 btn-small">
+                    De-Reference
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if error %}
+    <div class="error_box" >
+        <div class="row">
+            {{error}}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="section">
+        <div class="col">
+            <div class="card blue darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">An identifier can also be de-reference through the OCCUR API:</span>
+                    <p>
+                        <code>
+                            www.occur.duckdns.org/citations/dereference/?identifier=$IDENTIFIER
+                        </code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="col s12 m7">
+            <div class="card horizontal small">
+                <div class="card-image">
+                    <image src="{% static 'images/dereference_flow.png'%}" ></image>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h5 class="header">Explanation</h5>
+                        <blockquote>
+                            Paste an OCCUR identifier (either PK or UID) to de-reference an identifier.
+                            OCCUR will verify that the data has remained unchanged since the creation of the identity.
+                            If the data has changed, the user will be provided with a warning that the identifier cannot be
+                            de-referenced anymore. Otherwise, OCCUR will redirect to the data.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+{% endblock %}

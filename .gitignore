@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.acn
 *.acr
 *.alg
@@ -21,3 +22,9 @@
 .directory
 .dropbox
 _frew
+=======
+.idea/
+__pycache__
+occur/secret.py
+.directory
+>>>>>>> 3096965a1d35ded0de2b86b416eca9197f8d3972

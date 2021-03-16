@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OCCUR</title>
+    {% load static %}
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125572420-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-125572420-1');
+    </script>
+
+</head>
+
+<body>
+<header>
+    <nav>
+        <div class="nav-wrapper blue darken-1">
+            <a href="/" class="brand-logo right">OCCUR</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+
+                {% block active %}
+                 {% if home%}
+                <li class="active"><a href="{% url 'sitepages:home' %}">Home</a></li>
+                {% else %}
+                <li><a href="{% url 'sitepages:home' %}">Home</a></li>
+                {% endif %}
+
+                {% if about%}
+                <li class="active"><a href="{% url 'sitepages:about' %}">About</a></li>
+                {% else %}
+                <li><a href="{% url 'sitepages:about' %}">About</a></li>
+                {% endif %}
+
+                {% if identify %}
+                <li class="active"><a href="{% url 'citations:identify' %}">Identify</a></li>
+                {% else %}
+                <li><a href="{% url 'citations:identify' %}">Identify</a></li>
+                {% endif %}
+
+                {% if stored%}
+                <li class="active"><a href="{% url 'citations:stored' %}">Stored</a></li>
+                {% else %}
+                <li><a href="{% url 'citations:stored' %}">Stored</a></li>
+                {% endif %}
+
+                {% if dereference%}
+                <li class="active"><a href="{% url 'citations:dereference' %}">DeReference</a></li>
+                {% else %}
+                <li><a href="{% url 'citations:dereference' %}">DeReference</a></li>
+                {% endif %}
+
+                {% if format%}
+                <li class="active"><a href="{% url 'citations:format_dap' %}">FormatDAP</a></li>
+                {% else %}
+                <li><a href="{% url 'citations:format_dap' %}">FormatDAP</a></li>
+                {% endif %}
+
+                {% if crosscite%}
+                <li class="active"><a href="{% url 'citations:crosscite' %}">Crosscite</a></li>
+                {% else %}
+                <li><a href="{% url 'citations:crosscite' %}">Crosscite</a></li>
+                {% endif %}
+
+                {% if login%}
+                <li class="active"><a href="{% url 'accounts:log_in' %}">Login</a></li>
+                {% else %}
+                <li><a href="{% url 'accounts:log_in' %}">Login</a></li>
+                {% endif %}
+                {% endblock active %}
+
+                <li><a href="#", onclick="document.getElementById('logout').submit()">Logout</a></li>
+                <li><a href="#"> {{request.user.username}}</a></li>
+                <form id="logout" method="POST" action="{% url 'accounts:log_out' %}">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="/">Home</a></li>
+        <li><a href="{% url 'sitepages:about' %}">About</a></li>
+        <li><a href="{% url 'citations:identify' %}">Identify</a></li>
+        <li><a href="{% url 'citations:stored' %}">Stored</a></li>
+        <li><a href="{% url 'citations:dereference' %}">DeReference</a></li>
+        <li><a href="{% url 'citations:format_dap' %}">FormatDAP</a></li>
+        <li><a href="{% url 'citations:crosscite' %}">Crosscite</a></li>
+        <li><a href="{% url 'accounts:log_in' %}">Login</a></li>
+        <li><a href="#", onclick="document.getElementById('logout').submit()">Logout</a></li>
+    </ul>
+
+
+
+</header>
+
+<main>
+    <div class="container">
+        <section>
+            {% block content %}
+            {% endblock %}
+        </section>
+    </div>
+</main>
+
+
+
+
+<footer class="page-footer blue darken-1">
+    <div class="footer-copyright">
+        <div class="container">
+        <span class="white-text">© 2019
+            <a href="http://www.occur.duckdns.org" class="white-text" target="_blank">OCCUR</a>.
+            Website built by Niklas Griessbaum. Powered by
+            <a href="https://www.djangoproject.com" style="color:white"> django </a>  and
+            <a href="https://materializecss.com/icons.html" style="color:white">materializecss</a>.
+            <a class="white-text right" href="https://github.com/Dogfalo/materialize/blob/master/LICENSE">MIT License</a>
+        </span>
+        </div>
+    </div>
+</footer>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+</script>
+
+</body>
+</html>

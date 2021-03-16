@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block active %}
+{% with login=True %}
+{{ block.super }}
+{% endwith%}
+{% endblock active%}
+
+{% block content %}
+
+<div class="section">
+    <h3> User Login </h3>
+
+    <form method="post" action="{% url 'accounts:log_in' %}" id="login_form">
+        {% csrf_token %}
+
+        {% if request.GET.next %}
+        <input type="hidden" name="next" value={{ request.GET.next }}/>
+        {% endif %}
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="user">User Name</label>
+                <input id="user" type="text" name="user" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="user">Password</label>
+                <input type="password" name="password"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <button onclick="document.getElementById('login_form').submit()"
+                    class="waves-effect waves-light blue lighten-1 btn-small">
+                Log In
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="section">
+    <div class="row">
+        {% if error %}
+        {{error}}
+        {% endif %}
+    </div>
+</div>
+
+<div class="section">
+    <div class="row">
+        Not a user?
+        <a href="{% url 'accounts:sign_up' %}" class="button waves-effect waves-light blue lighten-1 btn-small">
+            Sign Up
+        </a>
+    </div>
+</div>
+
+
+{% endblock %}

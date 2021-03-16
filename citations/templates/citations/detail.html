@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load tz %}
+
+
+<div class="section">
+    <h3> Citation Details:</h3>
+
+    <ul class="collapsible expandable with-header">
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Occur Citation UID:
+            </div>
+            <div class="collapsible-body">
+                <p>{{ uid }}</p>
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Occur Citation PK:
+            </div>
+            <div class="collapsible-body">
+                {{ citation.pk }}
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                DAP URL:
+            </div>
+            <div class="collapsible-body">
+                <a href={{citation.dap_url}}>{{ citation.dap_url }}</a>
+            </div>
+        </li>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Creation time:
+            </div>
+            <div class="collapsible-body">
+                {{ citation.created_at|date:'Y-m-d H:i:s.u' }} (UTC)
+            </div>
+        <li class="">
+            <div class="collapsible-header"> <i class="material-icons">chevron_right</i>
+                Stored data_hash:
+            </div>
+            <div class="collapsible-body">
+                {{ citation.data_hash }}
+            </div>
+        </li>
+    </ul>
+
+    <a class="waves-effect waves-light blue lighten-1 btn" onClick="expandAll();">
+        <i class="material-icons left">fullscreen</i> Expand All
+    </a>
+    <a class="waves-effect waves-light blue lighten-1 btn" onClick="collapseAll();">
+        <i class="material-icons left">fullscreen_exit</i>Collapse All
+    </a>
+
+</div>
+
+
+<script type="text/javascript" src="/static/js/ui.js"></script>
+
+<h3> Format This Citation</h3>
+<form id="formatCitation" action="">
+    <div class="row">
+        <div class="input-field col s12">
+            <label for="style">Formatting Style</label>
+            <input type="text"
+                   id="style"
+                   class="autocomplete"
+                   name="style"
+                   autocomplete="off"/>
+            <span class="helper-text">Begin typing (e.g. APA or BiTeX.)</span>
+        </div>
+    </div>
+    <input type="hidden" id="dapUrl" name="dapUrl" value="{{citation.dap_url}}"/>
+    <p>
+        <label>
+            <input class="with-gap" name="doiSelector" type="radio" id="dasDOI"/>
+            <span>Extract DOI from DAS</span>
+        </label>
+    </p>
+    <p>
+        <label>
+            <input class="with-gap" name="doiSelector" type="radio" id="ignoreDOI"/>
+            <span>Ignore DOI</span>
+        </label>
+    </p>
+    <p>
+        <label>
+            <input class="with-gap" name="doiSelector" type="radio" id="externalDOI"/>
+            <span>Manually provide a DOI</span>
+        </label>
+    </p>
+
+    <input type="text" name="doiSource" id="doiSource" hidden/>
+
+    <div class="row">
+        <div class="input-field col s12" id="doiCol">
+            <label for="doi">DOI</label>
+            <input type="text"
+                   id="doi"
+                   name="doi"/>
+            <span class="helper-text">Paste DOI here</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <button type="submit"
+                class="waves-effect waves-light blue lighten-1 btn-small">
+            Format Citation
+        </button>
+    </div>
+
+</form>
+
+
+
+<div class="section">
+    <div class="row" id="error_row" style="display: none;">
+        <div class="card red lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Errors/Warnings</span>
+                <ul id="error_list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="row" id="citation_row" style="display: none;">
+        <div class="card blue lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Citation Snippet</span>
+                <textarea id="citation" class="materialize-textarea white-text" value=""></textarea>
+            </div>
+            <div class="card-action">
+                <button onclick="copyCitation()" class="waves-effect waves-light blue lighten-1 btn-small">Copy Citation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+var elem = document.querySelector('.collapsible.expandable');
+var instance = M.Collapsible.init(elem, {
+  accordion: false
+});
+</script>
+
+<script type="text/javascript">
+function expandAll(){
+    var elem = document.querySelector('.collapsible.expandable');
+    var instance = M.Collapsible.getInstance(elem);
+    instance.close(instance.length);
+    instance.open(instance.length);
+}
+
+function collapseAll(){
+    var elem = document.querySelector('.collapsible.expandable');
+    var instance = M.Collapsible.getInstance(elem);
+    instance.open(instance.length);
+    instance.close(instance.length);
+}
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}

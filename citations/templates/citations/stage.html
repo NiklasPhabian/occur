@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="section">
+    <h3> Stage Citation</h3>
+</div>
+
+<form id="form">
+    <div class="section">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            <tr>
+                <td>Title</td>
+                <td><input type="text" value="{{ title }}" id="title" name="title"></td>
+            </tr>
+            <tr>
+                <td>Version</td>
+                <td><input type="text" value="{{ version }}" id="version" name="version"></td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td><input type="text" value="{{ author }}" id="author" name="author"></td>
+            </tr>
+            <tr>
+                <td>DOI</td>
+                <td><input type="text" value="{{ DOI }}" id="DOI" name="DOI"></td>
+            </tr>
+            <tr>
+                <td>URL</td>
+                <td><input type="text" value="{{ URL }}" id="URL" name="URL"></td>
+            </tr>
+            <tr>
+                <td>Issued</td>
+                <td><input type="text" value="{{ issued }}" id="issued" name="issued"></td>
+            </tr>
+            <tr>
+                <td>Note</td>
+                <td><input type="text" value="{{ note }}" id="note" name="note"></td>
+            </tr>
+            <tr>
+                <td>Dimensions</td>
+                <td><input type="text" value="{{ dimensions }}" id="dimensions" name="dimensions"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <button type="submit" formaction="{% url 'citations:store' %}" class="waves-effect waves-light blue lighten-1 btn-small">
+            Store Citation
+        </button>
+    </div>
+
+
+</form>
+
+{% endblock %}
