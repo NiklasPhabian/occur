@@ -1,4 +1,30 @@
+<<<<<<< HEAD
+*.acn
+*.acr
+*.alg
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.glg
+*.glo
+*.gls
+*.gz
+*.ist
+*.kate-swp
+*.log
+*.out
+*.pdf
+*.toc
+*.webloc
+*.xml
+.DS_Store
+.directory
+.dropbox
+_frew
+=======
 .idea/
 __pycache__
 occur/secret.py
 .directory
+>>>>>>> 3096965a1d35ded0de2b86b416eca9197f8d3972
