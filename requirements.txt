@@ -2,10 +2,10 @@ asgiref==3.3.4
 certifi==2021.5.30
 chardet==4.0.0
 citeproc-py==0.6.0
-Django==3.2.12
+Django==4.0.4
 idna==3.2
 lxml==4.6.5
 pytz==2021.1
-requests==2.25.1
+requests==2.27.1
 sqlparse==0.4.2
-urllib3==1.26.5
+urllib3==1.26.9
