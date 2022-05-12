@@ -1,20 +1,20 @@
-from django.conf.urls import url, include
+from django.urls import re_path, include
 from . import views
 
-# So that we can use {% url 'citations:store' %}
+# So that we can use {% re_path 'citations:store' %}
 app_name = 'citations'
 
 urlpatterns = [
-    url(r'^stored/', views.stored, name='stored'),
-    url(r'^details/(?P<citation_id>[0-9]+)/$', views.details, name='details'),
-    url(r'^details/$', views.details, name='details'),
-    url(r'^format_dap/$', views.format_dap, name='format_dap'),
-    url(r'^crosscite/$', views.crosscite, name='crosscite'),
-    url(r'^make_snippet/$', views.make_snippet, name='make_snippet'),
-    url(r'^styles/$', views.styles, name='styles'),
-    url(r'^identify/$', views.store, name='identify'),
-    url(r'^stage/$', views.stage, name='stage'),
-    url(r'^dereference/$', views.dereference, name='dereference'),
-    url(r'^bib/', views.bib, name='bib'),
-    url(r'^csljson/', views.csljson, name='csljson'),
+    re_path(r'^stored/', views.stored, name='stored'),
+    re_path(r'^details/(?P<citation_id>[0-9]+)/$', views.details, name='details'),
+    re_path(r'^details/$', views.details, name='details'),
+    re_path(r'^format_dap/$', views.format_dap, name='format_dap'),
+    re_path(r'^crosscite/$', views.crosscite, name='crosscite'),
+    re_path(r'^make_snippet/$', views.make_snippet, name='make_snippet'),
+    re_path(r'^styles/$', views.styles, name='styles'),
+    re_path(r'^identify/$', views.store, name='identify'),
+    re_path(r'^stage/$', views.stage, name='stage'),
+    re_path(r'^dereference/$', views.dereference, name='dereference'),
+    re_path(r'^bib/', views.bib, name='bib'),
+    re_path(r'^csljson/', views.csljson, name='csljson'),
 ]
